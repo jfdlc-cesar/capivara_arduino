@@ -17,6 +17,11 @@ bool jogoRodando = false;
 bool algumBotaoPressionado();
 void piscarTodosLEDs();
 void apagarTodosLEDs();
+void imprimirTelaInicial();
+void imprimirInicioDeJogo();
+void imprimirFimDeJogo(int pontuacao);
+void imprimirStatus(bool acertou, int pontuacao, byte vidas, int tempoReacao);
+void limparConsole();
 
 void setup() {
   Serial.begin(9600);
@@ -31,10 +36,7 @@ void setup() {
 
   randomSeed(analogRead(A0));
 
-  Serial.println(F("***********************************"));
-  Serial.println(F("*     FÚRIA DAS CAPIVARAS         *"));
-  Serial.println(F("***********************************"));
-  Serial.println(F("Pressione qualquer botao para iniciar!"));
+  imprimirTelaInicial();
 }
 
 void loop() {
@@ -43,7 +45,7 @@ void loop() {
     if (algumBotaoPressionado()) {
       jogoRodando = true;
       tone(pinoBuzzer, 2000, 500);
-      Serial.println(F("Jogo comecou! VALENDO!"));
+      imprimirInicioDeJogo();
       delay(500);
     }
     return;
@@ -51,14 +53,7 @@ void loop() {
 
   if (vidas <= 0) {
     tone(pinoBuzzer, 2000, 500);
-    Serial.println(F("\n###################################"));
-    Serial.println(F("#          FIM DE JOGO            #"));
-    Serial.println(F("###################################"));
-    Serial.print(F("# Pontuacao Final: "));
-    Serial.print(pontuacao);
-    Serial.println(F("             #"));
-    Serial.println(F("###################################"));
-    Serial.println(F("Pressione qualquer botao para reiniciar."));
+    imprimirFimDeJogo(pontuacao);
 
     while (!algumBotaoPressionado()) {
       piscarTodosLEDs();
@@ -68,10 +63,8 @@ void loop() {
     pontuacao = 0;
     tempoCapivaraAcesa = TEMPO_REACAO_INICIAL;
     jogoRodando = false;
-    Serial.println(F("\n\n***********************************"));
-    Serial.println(F("*          Novo Jogo              *"));
-    Serial.println(F("***********************************"));
-    Serial.println(F("Pressione qualquer botao para iniciar!"));
+    limparConsole();
+    imprimirTelaInicial();
     apagarTodosLEDs();
     delay(1000);
     return;
@@ -109,22 +102,10 @@ void loop() {
   if (acertou) {
     pontuacao++;
     tone(pinoBuzzer, 2000, 50);
-    Serial.print(F(">> ACERTOU! | Pontos: "));
-    Serial.print(pontuacao);
-    Serial.print(F(" | Vidas: "));
-    Serial.print(vidas);
-    Serial.print(F(" | Reacao: "));
-    Serial.print(tempoCapivaraAcesa);
-    Serial.println(F("ms"));
+    imprimirStatus(acertou, pontuacao, vidas, tempoCapivaraAcesa);
   } else {
     vidas--;
-    Serial.print(F(">> ERROU!   | Pontos: "));
-    Serial.print(pontuacao);
-    Serial.print(F(" | Vidas: "));
-    Serial.print(vidas);
-    Serial.print(F(" | Reacao: "));
-    Serial.print(tempoCapivaraAcesa);
-    Serial.println(F("ms"));
+    imprimirStatus(acertou, pontuacao, vidas, tempoCapivaraAcesa);
   }
 
   delay(random(500, maxDelay + 1));
@@ -153,5 +134,50 @@ void piscarTodosLEDs() {
 void apagarTodosLEDs() {
   for (int i = 0; i < numCapivaras; i++) {
     digitalWrite(pinosLED[i], LOW);
+  }
+}
+
+void imprimirTelaInicial() {
+  Serial.println(F("  _____  __       _             _              ____            _                          _ "));
+  Serial.println(F(" |  ___|/_/_ _ __(_) __ _    __| | __ _ ___   / ___|__ _ _ __ (_)_   ____ _ _ __ __ _ ___| |"));
+  Serial.println(F(" | |_ | | | | '__| |/ _` |  / _` |/ _` / __| | |   / _` | '_ \\| | \\ / / _` | '__/ _` / __| |"));
+  Serial.println(F(" |  _|| |_| | |  | | (_| | | (_| | (_| \\__ \\ | |__| (_| | |_) | |\\ V / (_| | | | (_| \\__ \\_|"));
+  Serial.println(F(" |_|   \\__,_|_|  |_|\\__,_|  \\__,_|\\__,_|___/  \\____\\__,_| .__/|_| \\_/ \\__,_|_|  \\__,_|___(_)"));
+  Serial.println(F("                                                        |_|                                 "));
+  Serial.println(F("Pressione qualquer botao para iniciar!"));
+}
+
+void imprimirInicioDeJogo() {
+  Serial.println(F("Jogo comecou! VALENDO!"));
+}
+
+void imprimirFimDeJogo(int pontuacao) {
+  Serial.println(F("\n###################################"));
+  Serial.println(F("#          FIM DE JOGO            #"));
+  Serial.println(F("###################################"));
+  Serial.print(F("# Pontuacao Final: "));
+  Serial.print(pontuacao);
+  Serial.println(F("             #"));
+  Serial.println(F("###################################"));
+  Serial.println(F("Pressione qualquer botao para reiniciar."));
+}
+
+void imprimirStatus(bool acertou, int pontuacao, byte vidas, int tempoReacao) {
+  if (acertou) {
+    Serial.print(F(">> ACERTOU! | Pontos: "));
+  } else {
+    Serial.print(F(">> ERROU!   | Pontos: "));
+  }
+  Serial.print(pontuacao);
+  Serial.print(F(" | Vidas: "));
+  Serial.print(vidas);
+  Serial.print(F(" | Reacao: "));
+  Serial.print(tempoReacao);
+  Serial.println(F("ms"));
+}
+
+void limparConsole() {
+  for (int i = 0; i < 50; i++) {
+    Serial.println();
   }
 }

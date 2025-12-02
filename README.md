@@ -1,3 +1,11 @@
+``` 
+  _____  __       _             _              ____            _                          _ 
+ |  ___|/_/_ _ __(_) __ _    __| | __ _ ___   / ___|__ _ _ __ (_)_   ____ _ _ __ __ _ ___| |
+ | |_ | | | | '__| |/ _` |  / _` |/ _` / __| | |   / _` | '_ \| \ \ / / _` | '__/ _` / __| |
+ |  _|| |_| | |  | | (_| | | (_| | (_| \__ \ | |__| (_| | |_) | |\ V / (_| | | | (_| \__ \_|
+ |_|   \__,_|_|  |_|\__,_|  \__,_|\__,_|___/  \____\__,_| .__/|_| \_/ \__,_|_|  \__,_|___(_)
+                                                        |_|                                 
+```
 # Fúria das Capivaras - Jogo de Reação para Arduino
 
 Este projeto é um jogo de reação no estilo "Whac-a-Mole" (Acerte a Toupeira) com uma divertida temática de capivaras, implementado em um Arduino. O objetivo é testar e treinar os reflexos do jogador, que deve pressionar o botão correspondente a um LED que se acende aleatoriamente.
