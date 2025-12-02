@@ -1,26 +1,26 @@
-# 🕹️ Jogo Bata na Capivara com Arduino
+# Fúria das Capivaras - Jogo de Reação para Arduino
 
-Um jogo de reflexos onde o jogador deve pressionar o botão correspondente ao LED que acender aleatoriamente. O objetivo é acumular a maior pontuação possível antes de perder as 3 vidas.
+Este projeto é um jogo de reação no estilo "Whac-a-Mole" (Acerte a Toupeira) com uma divertida temática de capivaras, implementado em um Arduino. O objetivo é testar e treinar os reflexos do jogador, que deve pressionar o botão correspondente a um LED que se acende aleatoriamente.
 
-## 📋 Funcionalidades
-* **Sistema de Vidas:** O jogador começa com 3 vidas.
-* **Pontuação:** Exibida no Monitor Serial a cada acerto.
-* **Feedback Sonoro:** Bipes indicam acertos (agudo).
-* **Dificuldade:** O tempo de reação é limitado.
+A dificuldade do jogo é progressiva: conforme o jogador pontua, o tempo para reagir diminui e o intervalo entre as rodadas fica mais curto.
 
-## 🛠️ Lista de Materiais
-* 1x Arduino Uno
-* 5x LEDs Vermelhos (com resistores de 220Ω)
-* 5x Botões / Pushbuttons (com resistores de 10kΩ para pull-down)
-* 1x Buzzer (Piezo)
-* 1x Protoboard e Jumpers
+## Componentes Necessários
 
-## 🔌 Esquema de Ligações (Pinout)
+*   1x Placa Arduino (Uno, Nano, etc.)
+*   5x LEDs (qualquer cor)
+*   5x Push Buttons (botões de pressão)
+*   1x Buzzer passivo
+*   5x Resistores de 220Ω (para os LEDs)
+*   5x Resistores de 10kΩ (pull-down para os botões, opcional se usar `INPUT_PULLUP`)
+*   1x Protoboard
+*   Jumpers (fios) para as conexões
 
-| Componente | Pinos no Arduino |
-| :--- | :--- |
-| **Botões (Entrada)** | Pinos Digitais **3, 4, 5, 6, 7** |
-| **LEDs (Saída)** | Pinos Digitais **8, 9, 10, 11, 12** |
-| **Buzzer** | Pino Digital **13** |
+## Como Jogar
 
-> **Nota:** Os botões e LEDs devem ser montados na mesma ordem sequencial (o Botão no pino 3 controla o LED no pino 8, e assim por diante).
+1.  **Início:** Após carregar o código, o jogo aguardará. Pressione qualquer um dos cinco botões para começar a partida.
+2.  **Jogabilidade:** Um dos cinco LEDs se acenderá. Você deve pressionar o botão correspondente o mais rápido possível, antes que o LED se apague. O jogador só deve utilizar um dedo indicador para apertar os botões.
+3.  **Pontuação:**
+    *   **Acerto:** Se pressionar a tempo, você ganha 1 ponto e um som de sucesso é emitido.
+    *   **Erro:** Se não pressionar a tempo ou pressionar o botão errado (lógica não implementada, mas pode ser adicionada), você perde uma vida.
+4.  **Vidas:** O jogador começa com 3 vidas.
+5.  **Fim de Jogo:** O jogo termina quando as vidas chegam a zero. Sua pontuação final será exibida no Monitor Serial, e os LEDs piscarão continuamente. Pressione qualquer botão para reiniciar.
